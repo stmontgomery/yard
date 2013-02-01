@@ -26,6 +26,12 @@ module YARD
       #   +server_opts+ argument in {#initialize}
       attr_accessor :document_root
 
+      # @return [String] the root URL path under which the server should run.
+      #   Provides a way to "mount" the app under an alternate root URL path.
+      #   To set this field on initialization, pass +:base_prefix+ to the
+      #   +server_opts+ argument in {#initialize}
+      attr_accessor :base_prefix
+
       # @return [Hash{String=>Array<LibraryVersion>}] a map of libraries.
       # @see LibraryVersion LibraryVersion for information on building a list of libraries
       # @see #add_library
@@ -74,6 +80,7 @@ module YARD
         self.options = opts
         self.server_options = server_opts
         self.document_root = server_options[:DocumentRoot]
+        self.base_prefix = server_options[:base_prefix]
         self.router = (options[:router] || Router).new(self)
         options[:adapter] = self
         log.debug "Serving libraries using #{self.class}: #{libraries.keys.join(', ')}"

@@ -13,5 +13,5 @@ def mock_adapter(opts = {})
 end
 
 def mock_request(path = '/')
-  OpenStruct.new(:path => path)
+  OpenStruct.new(:path => path, :path_info => path)
 end

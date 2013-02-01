@@ -60,14 +60,17 @@ module YARD
 
       # @group Route Prefixes
 
+      # @return [String] the URI prefix for all routes
+      def base_prefix; '' end
+
       # @return [String] the URI prefix for all object documentation requests
-      def docs_prefix; 'docs' end
+      def docs_prefix; @docs_prefix ||= [base_prefix, 'docs'].reject {|p| p.empty? }.join('/') end
 
       # @return [String] the URI prefix for all class/method/file list requests
-      def list_prefix; 'list' end
+      def list_prefix; @list_prefix ||= [base_prefix, 'list'].reject {|p| p.empty? }.join('/') end
 
       # @return [String] the URI prefix for all search requests
-      def search_prefix; 'search' end
+      def search_prefix; @search_prefix ||= [base_prefix, 'search'].reject {|p| p.empty? }.join('/') end
 
       # @group Routing Methods
 
@@ -99,7 +102,7 @@ module YARD
       # @return [nil] if no route is matched
       def route(path = request.path)
         path = path.gsub(%r{//+}, '/').gsub(%r{^/|/$}, '')
-        return route_index if path.empty? || path == docs_prefix
+        return route_index if path.empty? || path == base_prefix || path == docs_prefix
         case path
         when /^(#{docs_prefix}|#{list_prefix}|#{search_prefix})(\/.*|$)/
           prefix = $1

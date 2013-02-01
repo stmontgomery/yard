@@ -3,9 +3,9 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen" charset="utf-8" />
-    <link rel="stylesheet" href="/css/custom.css" type="text/css" media="screen" charset="utf-8" />
-    <script type="text/javascript" charset="utf-8" src="/js/jquery.js"></script>
+    <link rel="stylesheet" href="<%= url_for 'css/style.css' %>" type="text/css" media="screen" charset="utf-8" />
+    <link rel="stylesheet" href="<%= url_for 'css/custom.css' %>" type="text/css" media="screen" charset="utf-8" />
+    <script type="text/javascript" charset="utf-8" src="<%= url_for 'js/jquery.js' %>"></script>
     <script type="text/javascript" charset="utf-8">
       function checkPage(process) {
         $.ajax({cache: false, url: "<%= router.request.path %>" + (process ? "?process=true" : ""), statusCode: { 200: function() { window.location = "<%= @path %>"; } } });
@@ -45,7 +45,7 @@
         <strong><%= @library.name %></strong> <% if @library.version %>(<%= @library.version %>)<% end %> is being processed.
         You'll be redirected when the pages are built, it shouldn't take much longer.
       </p>
-      <img src="/images/processing.gif" align="center" />
+      <img src="<%= url_for 'images/processing.gif' %>" align="center" />
     </div>
   </body>
 </html>

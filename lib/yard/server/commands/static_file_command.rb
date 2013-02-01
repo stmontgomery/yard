@@ -17,7 +17,7 @@ module YARD
 
         def run
           assets_template = Templates::Engine.template(:default, :fulldoc, :html)
-          path = File.cleanpath(request.path).gsub(%r{^(../)+}, '')
+          path = File.cleanpath(request.path_info).gsub(%r{^(../)+}, '')
 
           file = nil
           ([adapter.document_root] + STATIC_PATHS.reverse).compact.each do |path_prefix|
